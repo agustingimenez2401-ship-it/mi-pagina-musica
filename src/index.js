@@ -28,9 +28,17 @@ export default {
     if (route) {
       const handler = route[handlerName(request.method)];
       if (!handler) return new Response("Método no permitido", { status: 405 });
+      // Cloudflare currently has this binding saved as "music_data".
+      // Expose that namespace under the API's expected MUSIC_DATA name.
+      const apiEnv = new Proxy(env, {
+        get(target, property, receiver) {
+          if (property === "MUSIC_DATA") return target.music_data;
+          return Reflect.get(target, property, receiver);
+        },
+      });
       return handler({
         request,
-        env,
+        env: apiEnv,
         params: {},
         waitUntil: promise => ctx.waitUntil(promise),
         next: () => env.ASSETS.fetch(request),
