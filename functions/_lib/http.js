@@ -1,0 +1,5 @@
+const enc=new TextEncoder();
+export function json(data,status=200,headers={}){return new Response(JSON.stringify(data),{status,headers:{'content-type':'application/json; charset=utf-8','cache-control':'no-store',...headers}})}
+export async function sign(value,secret){const key=await crypto.subtle.importKey('raw',enc.encode(secret),{name:'HMAC',hash:'SHA-256'},false,['sign']);const sig=await crypto.subtle.sign('HMAC',key,enc.encode(value));return btoa(String.fromCharCode(...new Uint8Array(sig))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
+export async function validSession(request,env){if(!env.COOKIE_SECRET)return false;const cookie=request.headers.get('Cookie')||'',m=cookie.match(/(?:^|; )music_admin=([^;]+)/);if(!m)return false;const [expires,nonce,signature]=decodeURIComponent(m[1]).split('.');if(!expires||!nonce||!signature||Number(expires)<Date.now())return false;const expected=await sign(`${expires}.${nonce}`,env.COOKIE_SECRET);return signature===expected}
+export function cookie(value,maxAge){return `music_admin=${encodeURIComponent(value)}; Path=/; Max-Age=${maxAge}; HttpOnly; Secure; SameSite=Strict`}
