@@ -3,6 +3,7 @@
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#090b0f"><meta name="description" content="Un rincón personal para compartir música, canciones y mensajes."><title>Gustin sin A · Mi música</title><link rel="stylesheet" href="./assets/site.css"></head>
 <body>
 <div class="ambient" id="ambient"></div>
+<div class="snow-layer" id="snowLayer" aria-hidden="true"></div>
 <div class="top-tools" id="adminTools" hidden>
   <button class="tool whatsapp" id="sharePromo">Compartir en WhatsApp ↗</button><button class="tool" data-open="style">Colores y neón</button><button class="tool" data-open="dedications">Dedicatorias <b id="dedicationCount">0</b></button><button class="tool" data-open="spotlight">Mi sección</button><button class="tool" data-open="editor">Editar mi página +</button><button class="tool logout" id="logout">Salir</button>
 </div>
@@ -25,7 +26,7 @@
   <section class="featured section-card" id="featured">
     <div class="section-label"><span>Mi tema</span><span class="pinned-label" id="pinnedLabel">Fijado</span></div>
     <div class="player-wrap" id="playerWrap"><div class="video-frame" id="videoFrame"></div></div>
-    <div class="player-meta"><div><h2 id="featuredTitle">Anuel AA - ATRAPADO</h2><span class="muted" id="featuredArtist">JJSOUND · YOUTUBE</span></div><button class="cinema-button" id="cinemaOpen">◱ <span>Modo cine</span></button></div>
+    <div class="player-meta"><div><h2 id="featuredTitle">Anuel AA - ATRAPADO</h2><span class="muted" id="featuredArtist">JJSOUND · YOUTUBE</span></div><div class="player-actions"><button class="status-open" id="statusOpen">✦ <span>Crear video para tu estado</span></button><button class="cinema-button" id="cinemaOpen">◱ <span>Modo cine</span></button></div></div>
     <div class="reactions" id="reactionArea"><span>¿Qué te pareció?</span><button data-reaction="🔥" aria-label="Reaccionar con fuego">🔥 <b>0</b></button><button data-reaction="🖤" aria-label="Reaccionar con corazón negro">🖤 <b>0</b></button><button data-reaction="🥶" aria-label="Reaccionar con frío">🥶 <b>0</b></button></div>
   </section>
 
@@ -45,7 +46,32 @@
 
 <dialog class="modal" id="modal"><form method="dialog" class="modal-shell"><header class="modal-head"><div><div class="eyebrow" id="modalEyebrow">MI PÁGINA</div><h2 id="modalTitle">Editar</h2></div><button class="close-button" value="cancel" aria-label="Cerrar">×</button></header><div class="modal-body" id="modalBody"></div><footer class="modal-foot" id="modalFoot"></footer></form></dialog>
 <dialog class="cinema" id="cinema"><button class="close-button" id="cinemaClose" aria-label="Cerrar modo cine">×</button><div class="cinema-player" id="cinemaPlayer"></div><div class="cinema-caption" id="cinemaCaption"></div></dialog>
+<dialog class="status-dialog" id="statusDialog" aria-labelledby="statusTitle">
+  <form method="dialog" class="status-shell">
+    <header class="modal-head"><div><div class="eyebrow">PARA TU ESTADO</div><h2 id="statusTitle">Armá tu video con letra</h2></div><button class="close-button" value="cancel" aria-label="Cerrar">×</button></header>
+    <div class="status-layout">
+      <div class="status-controls">
+        <label>Tema<input id="statusSong" maxlength="80" value="Anuel AA - ATRAPADO"></label>
+        <label>Artista<input id="statusArtist" maxlength="60" value="JJSOUND"></label>
+        <label>Letra <small>Una línea por renglón; se van iluminando durante el video.</small><textarea id="statusLyrics" rows="6" maxlength="900" placeholder="Pegá o escribí las líneas que querés mostrar…" required></textarea></label>
+        <div class="status-control-grid">
+          <label>Formato<select id="statusFormat"><option value="story">Historia 9:16</option><option value="square">Cuadrado 1:1</option><option value="feed">Feed 4:5</option></select></label>
+          <label>Duración<select id="statusDuration"><option value="8">8 segundos</option><option value="12" selected>12 segundos</option><option value="16">16 segundos</option></select></label>
+          <label>Estilo<select id="statusTheme"><option value="ice">Nieve azul</option><option value="neon">Neón verde</option><option value="violet">Violeta</option><option value="rose">Rosa</option><option value="mono">Blanco y negro</option></select></label>
+          <label>Letra<select id="statusFont"><option value="bold">Fuerte</option><option value="serif">Elegante</option><option value="clean">Simple</option></select></label>
+        </div>
+        <label class="file-pick">Fondo propio <small>Opcional · la imagen se procesa en tu navegador.</small><input id="statusBackground" type="file" accept="image/*"></label>
+        <label class="file-pick">Audio propio <small>Opcional · se mezcla dentro del MP4 y no se guarda en el sitio.</small><input id="statusAudio" type="file" accept="audio/*"></label>
+        <label class="check-line"><input id="statusSnow" type="checkbox" checked> Copos animados</label>
+        <label class="check-line"><input id="statusLabel" type="checkbox" checked> Mostrar tema y artista</label>
+      </div>
+      <div class="status-preview-column"><div class="status-preview-frame"><canvas id="statusPreview" width="360" height="640" aria-label="Vista previa del video"></canvas></div><p class="muted">La letra y el fondo quedan dentro del archivo descargado.</p></div>
+    </div>
+    <footer class="status-footer"><p id="statusMessage" class="status-message" role="status" aria-live="polite">Elegí unas líneas para empezar.</p><div><button type="button" class="outline-button" id="statusShare" disabled>Compartir…</button><button type="button" class="primary-button" id="statusDownload">Descargar MP4</button></div></footer>
+  </form>
+</dialog>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script src="./assets/app.js" defer></script>
+<script src="./assets/status.js" defer></script>
 </body></html>
 
