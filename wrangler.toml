@@ -2,6 +2,10 @@ name = "mi-pagina-musica"
 main = "./src/index.js"
 compatibility_date = "2026-11-26"
 
+[[kv_namespaces]]
+binding = "music_data"
+id = "b432a68cc6c548bea1f3798cbabf413c"
+
 [assets]
 directory = "./public"
 binding = "ASSETS"
