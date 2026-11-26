@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="es">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#090b0f"><meta name="description" content="Un rincón personal para compartir música, canciones y mensajes."><title>Gustin sin A · Mi música</title><link rel="stylesheet" href="./assets/site.css"></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#090b0f"><meta name="description" content="Un rincón personal para compartir música, canciones y mensajes."><title>Gustin sin A · Mi música</title><link rel="stylesheet" href="./assets/site.css?v=20261126b"></head>
 <body>
 <div class="ambient" id="ambient"></div>
 <div class="snow-layer" id="snowLayer" aria-hidden="true"></div>
@@ -15,7 +15,6 @@
     <section class="fact" id="factBox"><div class="eyebrow">MINI FACTO DEL DÍA</div><p id="factText">Vivila q es prestada.</p></section>
     <p class="profile-note" id="profileNote"></p>
     <div class="social-row"><a class="instagram" id="instagram" href="https://instagram.com/aguustin.97/" target="_blank" rel="noreferrer">◎ <span>@aguustin.97</span></a><button class="link-copy" id="copyLink">Copiar mi link</button></div>
-    <div class="signature" id="signature"></div>
   </section>
 
   <section class="spotlight" id="spotlightCard" hidden>
@@ -37,7 +36,7 @@
     <div class="track-list" id="trackList"></div>
   </section>
 
-  <footer class="footer"><span>Hecha para escuchar, compartir y quedarse un rato.</span><a href="/admin/">Mi acceso</a></footer>
+  <footer class="footer"><span>Hecha para escuchar, compartir y quedarse un rato.</span><span class="signature" id="signature"></span><a href="/admin/">Mi acceso</a></footer>
 </main>
 
 <div class="entry" id="entry" hidden><div class="entry-card"><div class="entry-disc"><img src="./assets/avatar-placeholder.svg" alt="" id="entryAvatar"><span>♫</span></div><div class="eyebrow">MIS TEMAS · MI MUNDO</div><h2 id="entryName">Gustin sin A.</h2><p id="entrySong">Anuel AA - ATRAPADO</p><div class="entry-actions"><button class="primary-button" id="enterWithSound">Tocá para entrar ↗</button><button class="quiet-button" id="enterSilent">Entrar sin sonido</button></div></div></div>
@@ -57,6 +56,7 @@
           <label>Duración<select id="statusDuration"><option value="8">8 segundos</option><option value="12" selected>12 segundos</option><option value="16">16 segundos</option></select></label>
           <label>Estilo<select id="statusTheme"><option value="ice">Nieve azul</option><option value="neon">Neón verde</option><option value="violet">Violeta</option><option value="rose">Rosa</option><option value="mono">Blanco y negro</option></select></label>
           <label>Letra<select id="statusFont"><option value="bold">Fuerte</option><option value="serif">Elegante</option><option value="clean">Simple</option></select></label>
+          <label>Animación<select id="statusAnimation"><option value="soft">Suave</option><option value="karaoke">Karaoke</option><option value="pulse">Pulso</option></select></label>
         </div>
         <label class="file-pick">Fondo propio <small>Opcional · la imagen se procesa en tu navegador.</small><input id="statusBackground" type="file" accept="image/*"></label>
         <label class="file-pick">Audio propio <small>Opcional · se mezcla dentro del MP4 y no se guarda en el sitio.</small><input id="statusAudio" type="file" accept="audio/*"></label>
@@ -69,7 +69,8 @@
   </form>
 </dialog>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
-<script src="./assets/app.js" defer></script>
-<script src="./assets/status.js" defer></script>
+<script src="./assets/app.js?v=20261126b" defer></script>
+<script src="./assets/status.js?v=20261126b" defer></script>
 </body></html>
+
 
