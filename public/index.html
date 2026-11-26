@@ -5,7 +5,7 @@
 <div class="ambient" id="ambient"></div>
 <div class="snow-layer" id="snowLayer" aria-hidden="true"></div>
 <div class="top-tools" id="adminTools" hidden>
-  <button class="tool whatsapp" id="sharePromo">Compartir en WhatsApp ↗</button><button class="tool" data-open="style">Colores y neón</button><button class="tool" data-open="dedications">Dedicatorias <b id="dedicationCount">0</b></button><button class="tool" data-open="spotlight">Mi sección</button><button class="tool" data-open="editor">Editar mi página +</button><button class="tool logout" id="logout">Salir</button>
+  <button class="tool whatsapp" id="sharePromo">Compartir en WhatsApp ↗</button><button class="tool" data-open="style">Colores y neón</button><button class="tool" data-open="spotlight">Mi sección</button><button class="tool" data-open="editor">Editar mi página +</button><button class="tool logout" id="logout">Salir</button>
 </div>
 <main class="page" id="page">
   <section class="profile-head">
@@ -26,7 +26,7 @@
   <section class="featured section-card" id="featured">
     <div class="section-label"><span>Mi tema</span><span class="pinned-label" id="pinnedLabel">Fijado</span></div>
     <div class="player-wrap" id="playerWrap"><div class="video-frame" id="videoFrame"></div></div>
-    <div class="player-meta"><div><h2 id="featuredTitle">Anuel AA - ATRAPADO</h2><span class="muted" id="featuredArtist">JJSOUND · YOUTUBE</span></div><div class="player-actions"><button class="status-open" id="statusOpen">✦ <span>Crear video para tu estado</span></button><button class="cinema-button" id="cinemaOpen">◱ <span>Modo cine</span></button></div></div>
+    <div class="player-meta"><div><h2 id="featuredTitle">Anuel AA - ATRAPADO</h2><span class="muted" id="featuredArtist">JJSOUND · YOUTUBE</span></div><div class="player-actions"><button class="status-open" id="statusOpen" hidden>✦ <span>Crear video para tu estado</span></button><button class="cinema-button" id="cinemaOpen">◱ <span>Modo cine</span></button></div></div>
     <div class="reactions" id="reactionArea"><span>¿Qué te pareció?</span><button data-reaction="🔥" aria-label="Reaccionar con fuego">🔥 <b>0</b></button><button data-reaction="🖤" aria-label="Reaccionar con corazón negro">🖤 <b>0</b></button><button data-reaction="🥶" aria-label="Reaccionar con frío">🥶 <b>0</b></button></div>
   </section>
 
@@ -35,10 +35,8 @@
     <p class="admin-hint" id="adminHint" hidden>Arrastrá desde los puntitos para ordenar. Tocá el lápiz para editar nombre y tiempo.</p>
     <div class="artist-tools" id="artistTools" hidden><button id="sortArtist">Ordenar por cantante ↗</button><label><input id="artistAuto" type="checkbox" checked> Agrupar los nuevos automáticamente</label></div>
     <div class="track-list" id="trackList"></div>
-    <div class="guest-section"><div class="section-heading"><div><div class="eyebrow">PARA COMPARTIR</div><h3>Temas de ustedes</h3></div><button class="outline-button" id="guestAdd">＋ Sumar mi canción</button></div><p class="muted">Dejá un tema con tu nombre o tu IG.</p><div class="track-list guest-list" id="guestList"></div></div>
   </section>
 
-  <section class="wall-section" id="wallSection"><div class="section-heading"><div><div class="eyebrow">EL MURO</div><h2>Los que pasan por acá</h2></div><button class="outline-button" id="commentOpen">Dejar algo ↗</button></div><div class="rating-summary" id="ratingSummary">★ 5.0 / 5 · 2 reseñas</div><div class="comments" id="comments"></div><button class="refresh-button" id="refreshComments">↻ Actualizar comentarios</button></section>
   <footer class="footer"><span>Hecha para escuchar, compartir y quedarse un rato.</span><a href="/admin/">Mi acceso</a></footer>
 </main>
 
@@ -46,7 +44,7 @@
 
 <dialog class="modal" id="modal"><form method="dialog" class="modal-shell"><header class="modal-head"><div><div class="eyebrow" id="modalEyebrow">MI PÁGINA</div><h2 id="modalTitle">Editar</h2></div><button class="close-button" value="cancel" aria-label="Cerrar">×</button></header><div class="modal-body" id="modalBody"></div><footer class="modal-foot" id="modalFoot"></footer></form></dialog>
 <dialog class="cinema" id="cinema"><button class="close-button" id="cinemaClose" aria-label="Cerrar modo cine">×</button><div class="cinema-player" id="cinemaPlayer"></div><div class="cinema-caption" id="cinemaCaption"></div></dialog>
-<dialog class="status-dialog" id="statusDialog" aria-labelledby="statusTitle">
+<dialog class="status-dialog" id="statusDialog" aria-labelledby="statusTitle" hidden>
   <form method="dialog" class="status-shell">
     <header class="modal-head"><div><div class="eyebrow">PARA TU ESTADO</div><h2 id="statusTitle">Armá tu video con letra</h2></div><button class="close-button" value="cancel" aria-label="Cerrar">×</button></header>
     <div class="status-layout">

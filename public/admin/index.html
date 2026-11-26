@@ -1,2 +1,57 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#090b0f"><title>Mi acceso · Gustin sin A</title><link rel="stylesheet" href="../assets/site.css"></head><body class="login-page admin-shell"><main class="login-card" id="accessCard"><a class="back-link" href="../">← Volver</a><h1>Mi acceso</h1><form id="loginForm"><label for="password">Clave de administrador</label><input id="password" type="password" autocomplete="current-password" required placeholder="Ingresá tu clave"><p class="error" id="loginError" hidden></p><button class="primary-button" type="submit">Entrar</button></form><small>Solo vos podés cambiar lo que aparece acá.</small></main><iframe id="adminFrame" title="Editor de la página musical" src="../" hidden></iframe><script src="../assets/login.js" defer></script><script src="../assets/admin-shell.js" defer></script></body></html>
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#090b0f">
+  <title>Mi panel · Gustin sin A</title>
+  <link rel="stylesheet" href="../assets/site.css">
+  <link rel="stylesheet" href="../assets/admin-panel.css">
+</head>
+<body class="admin-page">
+  <div class="admin-snow" id="adminSnow" aria-hidden="true"></div>
+  <main class="login-card admin-login" id="accessCard">
+    <a class="back-link" href="../">← Volver a la página</a>
+    <div class="admin-login-mark">✦</div>
+    <div class="eyebrow">ACCESO PRIVADO</div>
+    <h1>Tu panel de música</h1>
+    <p>Iniciá sesión para personalizar tu página, tus canciones y tus estados.</p>
+    <form id="loginForm">
+      <label for="password">Clave de administrador</label>
+      <input id="password" type="password" autocomplete="current-password" required placeholder="Ingresá tu clave">
+      <p class="error" id="loginError" hidden></p>
+      <button class="primary-button" type="submit">Entrar al panel <span>↗</span></button>
+    </form>
+    <small>Este espacio solo se abre con tu sesión de administrador.</small>
+  </main>
 
+  <section class="admin-dashboard" id="adminDashboard" hidden>
+    <header class="admin-topbar">
+      <a class="admin-brand" href="/" aria-label="Ir a tu página"><span>✦</span><div><b>Gustin sin A.</b><small>Panel de música</small></div></a>
+      <div class="admin-top-actions"><span class="admin-session"><i></i> Sesión privada</span><a href="/" target="_blank" rel="noreferrer" class="admin-visit">Ver mi página ↗</a><button class="admin-logout" id="logoutPanel">Salir</button></div>
+    </header>
+    <div class="admin-workspace">
+      <aside class="admin-sidebar">
+        <div class="admin-side-title">CONFIGURACIÓN</div>
+        <button class="admin-nav active" data-admin-tab="home"><span>⌂</span> Vista previa</button>
+        <div class="admin-side-title side-gap">TU PÁGINA</div>
+        <button class="admin-nav" data-admin-tab="profile"><span>◉</span> Perfil e imágenes</button>
+        <button class="admin-nav" data-admin-tab="style"><span>✧</span> Colores y animaciones</button>
+        <button class="admin-nav" data-admin-tab="background"><span>▧</span> Fondo y firma</button>
+        <button class="admin-nav" data-admin-tab="spotlight"><span>♫</span> Mi sección</button>
+        <button class="admin-nav" data-admin-tab="songs"><span>☷</span> Mis canciones</button>
+        <div class="admin-side-title side-gap">PARA COMPARTIR</div>
+        <button class="admin-nav admin-state-nav" data-admin-tab="status"><span>✦</span> Crear video para estado</button>
+        <div class="admin-side-bottom"><span class="admin-snow-dot">❄</span><span>Un espacio hecho a tu estilo.</span></div>
+      </aside>
+      <main class="admin-content">
+        <div class="admin-heading"><div><div class="eyebrow">TU ESPACIO</div><h1 id="panelHeading">Vista previa</h1><p id="panelDescription">Mirá cómo se ve tu página y elegí qué querés personalizar.</p></div><span class="admin-live-pill"><i></i> Página activa</span></div>
+        <div class="admin-preview-card"><div class="admin-preview-top"><div><b>Vista previa en vivo</b><span>Los cambios aparecen acá cuando los guardás.</span></div><span class="admin-spark">✦</span></div><iframe id="adminFrame" title="Vista previa y configuración de tu página" src="/?panelPreview=1"></iframe></div>
+        <p class="admin-footnote">Las opciones de edición y creación de videos aparecen dentro de tu sesión privada.</p>
+      </main>
+    </div>
+  </section>
+  <script src="../assets/login.js" defer></script>
+  <script src="../assets/admin-shell.js" defer></script>
+</body>
+</html>
