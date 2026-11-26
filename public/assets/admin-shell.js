@@ -1,0 +1,1 @@
+(async()=>{try{const r=await fetch('/api/session',{credentials:'same-origin',cache:'no-store'});const session=await r.json();if(session.authenticated){document.querySelector('#accessCard').hidden=true;document.querySelector('#adminFrame').hidden=false}else{document.querySelector('#accessCard').hidden=false}}catch{document.querySelector('#accessCard').hidden=false}})();
