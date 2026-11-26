@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="es">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#090b0f"><meta name="description" content="Un rincón personal para compartir música, canciones y mensajes."><title>Gustin sin A · Mi música</title><link rel="stylesheet" href="./assets/site.css?v=20261126b"></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#090b0f"><meta name="description" content="Un rincón personal para compartir música, canciones y mensajes."><title>Gustin sin A · Mi música</title><link rel="stylesheet" href="./assets/site.css?v=20261126c"></head>
 <body>
 <div class="ambient" id="ambient"></div>
 <div class="snow-layer" id="snowLayer" aria-hidden="true"></div>
@@ -53,24 +53,30 @@
         <label>Letra <small>Una línea por renglón; se van iluminando durante el video.</small><textarea id="statusLyrics" rows="6" maxlength="900" placeholder="Pegá o escribí las líneas que querés mostrar…" required></textarea></label>
         <div class="status-control-grid">
           <label>Formato<select id="statusFormat"><option value="story">Historia 9:16</option><option value="square">Cuadrado 1:1</option><option value="feed">Feed 4:5</option></select></label>
-          <label>Duración<select id="statusDuration"><option value="8">8 segundos</option><option value="12" selected>12 segundos</option><option value="16">16 segundos</option></select></label>
-          <label>Estilo<select id="statusTheme"><option value="ice">Nieve azul</option><option value="neon">Neón verde</option><option value="violet">Violeta</option><option value="rose">Rosa</option><option value="mono">Blanco y negro</option></select></label>
+          <label>Duración<select id="statusDuration"><option value="12">12 segundos</option><option value="20">20 segundos</option><option value="30" selected>30 segundos</option><option value="60">60 segundos</option></select></label>
+          <label>Estilo<select id="statusTheme"><option value="ice">Nieve azul</option><option value="neon">Neón verde</option><option value="violet">Violeta</option><option value="rose">Rosa</option><option value="sunset">Atardecer</option><option value="cyber">Cyber</option><option value="mono">Blanco y negro</option></select></label>
           <label>Letra<select id="statusFont"><option value="bold">Fuerte</option><option value="serif">Elegante</option><option value="clean">Simple</option></select></label>
           <label>Animación<select id="statusAnimation"><option value="soft">Suave</option><option value="karaoke">Karaoke</option><option value="pulse">Pulso</option></select></label>
         </div>
         <label class="file-pick">Fondo propio <small>Opcional · la imagen se procesa en tu navegador.</small><input id="statusBackground" type="file" accept="image/*"></label>
-        <label class="file-pick">Audio propio <small>Opcional · se mezcla dentro del MP4 y no se guarda en el sitio.</small><input id="statusAudio" type="file" accept="audio/*"></label>
+        <label class="file-pick">Canción para el MP4 <small>Elegí una canción que ya tenga audio cargado o subí un MP3/M4A/WAV. YouTube y Spotify no se pueden copiar directamente al video.</small><select id="statusTrack"><option value="">Elegir canción guardada…</option></select></label>
+        <div class="status-control-grid"><label>Empezar audio en (segundos)<input id="statusAudioStart" type="number" min="0" step="0.1" value="0"></label><label class="file-pick status-audio-upload">Subir audio propio<small>MP3, M4A o WAV · máximo 8 MB</small><input id="statusAudioUpload" type="file" accept="audio/*"></label></div>
+        <p class="status-sync-hint">Sincronización: poné el cursor en una línea y tocá “Marcar línea” mientras escuchás. También podés pegar una línea por renglón con marcas como <code>[00:12.50] letra</code>, o importar un LRC.</p>
+        <button type="button" class="status-mark-cue" id="statusMarkCue">Marcar la línea del cursor con el audio actual</button>
+        <label class="file-pick">Importar letra sincronizada (.LRC)<small>También podés cargar un archivo LRC para respetar los tiempos de cada línea.</small><input id="statusLyricsFile" type="file" accept=".lrc,.txt,text/plain"></label>
+        <label class="file-pick">Portada para el video<small>Opcional · usá una imagen tuya o la portada subida a la canción.</small><input id="statusCoverUpload" type="file" accept="image/*"></label>
         <label class="check-line"><input id="statusSnow" type="checkbox" checked> Copos animados</label>
         <label class="check-line"><input id="statusLabel" type="checkbox" checked> Mostrar tema y artista</label>
+        <label class="check-line"><input id="statusShowCover" type="checkbox" checked> Mostrar portada</label>
       </div>
-      <div class="status-preview-column"><div class="status-preview-frame"><canvas id="statusPreview" width="360" height="640" aria-label="Vista previa del video"></canvas></div><p class="muted">La letra y el fondo quedan dentro del archivo descargado.</p></div>
+      <div class="status-preview-column"><div class="status-preview-frame"><canvas id="statusPreview" width="360" height="640" aria-label="Vista previa del video"></canvas></div><audio id="statusAudioPreview" controls preload="metadata" aria-label="Escuchar el audio de la canción"></audio><div class="status-preview-tools"><button type="button" id="statusPreviewPlay">❚❚ Pausar vista</button><button type="button" id="statusLyricsDemo">Usar letra de ejemplo</button></div><p class="muted">Escuchá el audio y ajustá los tiempos de la letra. El MP4 se exporta a 60 fps cuando el dispositivo lo admite.</p></div>
     </div>
     <footer class="status-footer"><p id="statusMessage" class="status-message" role="status" aria-live="polite">Elegí unas líneas para empezar.</p><div><button type="button" class="outline-button" id="statusShare" disabled>Compartir…</button><button type="button" class="primary-button" id="statusDownload">Descargar MP4</button></div></footer>
   </form>
 </dialog>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
-<script src="./assets/app.js?v=20261126b" defer></script>
-<script src="./assets/status.js?v=20261126b" defer></script>
+<script src="./assets/app.js?v=20261126c" defer></script>
+<script src="./assets/status.js?v=20261126c" defer></script>
 </body></html>
 
 
