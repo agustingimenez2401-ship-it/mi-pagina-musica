@@ -16,6 +16,20 @@
 @media(max-width:700px){.player-actions{gap:6px}.status-open{padding:8px 10px;font-size:11px}.status-open span{max-width:110px}.status-dialog{width:calc(100vw - 12px);max-height:96dvh;border-radius:17px}.status-shell{max-height:96dvh}.status-layout{grid-template-columns:1fr;gap:14px;padding:13px}.status-preview-column{grid-row:1}.status-preview-frame{width:min(48vw,195px)}.status-controls{grid-template-columns:1fr 1fr;gap:10px}.status-controls>label:nth-child(3),.status-control-grid,.file-pick,.check-line{grid-column:1/-1}.status-controls textarea{min-height:92px}.status-footer{align-items:flex-start;flex-direction:column}.status-footer>div{width:100%}.status-footer button{flex:1}.player-meta{align-items:flex-start}}
 @media(prefers-reduced-motion:reduce){.site-flake{display:none!important}.status-open{transition:none}}
 
+/* Consistent signature placement, customizable avatar frame, and fluid lyric preview. */
+.footer .signature{position:static;display:inline-block;order:2;margin:0 5px;color:var(--avatar-ring);font:italic 22px/1.2 Georgia,serif;letter-spacing:.02em;transform:none;opacity:.9;text-shadow:0 0 16px color-mix(in srgb,var(--avatar-ring) 60%,transparent);white-space:nowrap}
+.signature-outline{-webkit-text-stroke:1px var(--signature-color,var(--avatar-ring));color:transparent!important;text-shadow:0 0 12px color-mix(in srgb,var(--avatar-ring) 35%,transparent)}
+.signature-neon{text-shadow:0 0 7px currentColor,0 0 18px currentColor}
+.signature-hidden{display:none!important}
+.avatar{border-color:var(--avatar-ring,#a8eaff);box-shadow:0 7px 24px #0009,0 0 0 2px color-mix(in srgb,var(--avatar-ring,#a8eaff) 65%,transparent),0 0 25px color-mix(in srgb,var(--avatar-glow,#baff70) 42%,transparent);transition:border-radius .25s ease,filter .25s ease,box-shadow .25s ease}
+.avatar-shape-circle{border-radius:50%}.avatar-shape-squircle{border-radius:32%}.avatar-shape-rounded{border-radius:20%}
+.avatar-halo,.avatar-pulse{box-shadow:0 0 0 2px var(--avatar-ring),0 0 27px var(--avatar-glow)}
+.avatar-animated{background:linear-gradient(#111,#111) padding-box,conic-gradient(var(--avatar-ring),var(--avatar-glow),#ff91d5,var(--avatar-ring)) border-box}
+.status-preview-frame canvas{transform:translateZ(0);backface-visibility:hidden;will-change:contents}
+@media(max-width:650px){.footer .signature{font-size:19px}.footer{gap:11px}}
+@media(prefers-reduced-motion:reduce){.avatar{transition:none}}
+
 /* Private admin preview and per-song artist images */
 body.panel-preview #adminTools{display:none!important}.track-row{grid-template-columns:25px 42px 30px minmax(0,1fr) auto auto}.track-art{position:relative;display:grid;place-items:center;width:40px;height:40px;overflow:hidden;border-radius:50%;border:1px solid #ffffff26;background:radial-gradient(circle at 25% 20%,color-mix(in srgb,var(--accent) 45%,#141821),#17131d 76%);box-shadow:0 0 16px color-mix(in srgb,var(--accent) 16%,transparent);flex:none}.track-art-fallback{font-size:13px;font-weight:800;color:#f1f5fa;text-shadow:0 0 10px var(--accent)}.track-art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:50%;z-index:1}.track-row.active .track-art{box-shadow:0 0 0 2px var(--accent),0 0 20px color-mix(in srgb,var(--accent) 38%,transparent)}.track-editor .track-art{width:34px;height:34px}.settings-panel .track-editor{grid-template-columns:36px 1fr auto}
 @media(max-width:650px){.track-row{grid-template-columns:20px 36px 28px minmax(0,1fr) auto}.track-art{width:34px;height:34px}.track-editor .track-art{width:32px;height:32px}}
+
