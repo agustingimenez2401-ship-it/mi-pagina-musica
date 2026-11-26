@@ -29,6 +29,35 @@
 @media(max-width:650px){.footer .signature{font-size:19px}.footer{gap:11px}}
 @media(prefers-reduced-motion:reduce){.avatar{transition:none}}
 
+/* More choices for the page atmosphere without scattering or overlapping controls. */
+.page{width:min(var(--page-width,940px),calc(100% - 28px))}
+.music-section{width:min(var(--page-width,940px),calc(100% - 28px))}
+.section-card,.spotlight{width:min(700px,100%);transition:background .3s ease,border-color .3s ease,box-shadow .3s ease,border-radius .3s ease}
+body[data-visual-mood="glass"] .section-card,body[data-visual-mood="glass"] .spotlight{background:linear-gradient(140deg,#10151ddd,#10151dc9);border-color:color-mix(in srgb,var(--accent) 24%,#ffffff1c);backdrop-filter:blur(20px)}
+body[data-visual-mood="soft"] .section-card,body[data-visual-mood="soft"] .spotlight{border-radius:28px;background:linear-gradient(145deg,color-mix(in srgb,var(--accent) 13%,#151923),#0b1018e8);border-color:color-mix(in srgb,var(--accent) 30%,transparent);box-shadow:0 18px 60px color-mix(in srgb,var(--accent) 12%,#000)}
+body[data-visual-mood="studio"] .section-card,body[data-visual-mood="studio"] .spotlight{border-radius:12px;background:#090c11ed;border-color:#ffffff25;box-shadow:0 12px 35px #0009}
+.avatar-motion-float .avatar{animation:avatarDrift 4.8s ease-in-out infinite alternate}
+.avatar-motion-glow .avatar{animation:avatarAura 2.6s ease-in-out infinite alternate}
+@keyframes avatarDrift{to{transform:translateY(-6px)}}
+@keyframes avatarAura{to{box-shadow:0 0 0 3px var(--avatar-ring),0 0 38px var(--avatar-glow)}}
+.site-particle{position:absolute;z-index:1;pointer-events:none;color:color-mix(in srgb,var(--accent) 72%,#fff);text-shadow:0 0 12px color-mix(in srgb,var(--accent) 80%,transparent);will-change:transform,opacity}
+.site-particle-snow{top:-30px;animation:siteSnowfall linear infinite}
+.site-particle-stars{animation:siteTwinkle ease-in-out infinite alternate}
+.site-particle-sparkles{top:-25px;animation:siteSparkle linear infinite}
+@keyframes siteTwinkle{from{transform:scale(.72) rotate(-10deg);filter:brightness(.65)}to{transform:scale(1.18) rotate(18deg);filter:brightness(1.6)}}
+@keyframes siteSparkle{to{transform:translate3d(var(--sway),108vh,0) rotate(260deg);opacity:0}}
+.status-preview-column audio{width:min(100%,250px);height:36px;filter:saturate(.8)}
+.status-preview-tools{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;width:100%}
+.status-preview-tools button{border:1px solid #ffffff28;border-radius:99px;background:#ffffff0a;color:#eaf3fb;padding:7px 10px;font-size:10px}
+.status-mark-cue{justify-self:start;border:1px solid #baff7055;border-radius:10px;background:#baff7010;color:#e7ffd0;padding:9px 12px;font-size:11px;font-weight:750;transition:background .18s ease,transform .18s ease}
+.status-mark-cue:hover{background:#baff7020;transform:translateY(-1px)}
+.status-sync-hint{margin:0;border-left:2px solid #baff70;padding:8px 10px;background:#baff7009;border-radius:0 9px 9px 0;color:#c2d0da;font-size:10px;line-height:1.5}
+.status-sync-hint code{color:#d7ff9d;font-size:10px}
+.status-audio-upload{display:grid;align-content:start;gap:7px;font-size:11px;color:#cdd8df}
+.status-audio-upload input{margin-top:4px}
+@media(max-width:650px){.page,.music-section{width:calc(100% - 18px)}.status-preview-column audio{width:min(66vw,230px)}}
+@media(prefers-reduced-motion:reduce){.site-particle,.avatar-motion-float .avatar,.avatar-motion-glow .avatar{animation:none!important}.status-mark-cue{transition:none}}
+
 /* Private admin preview and per-song artist images */
 body.panel-preview #adminTools{display:none!important}.track-row{grid-template-columns:25px 42px 30px minmax(0,1fr) auto auto}.track-art{position:relative;display:grid;place-items:center;width:40px;height:40px;overflow:hidden;border-radius:50%;border:1px solid #ffffff26;background:radial-gradient(circle at 25% 20%,color-mix(in srgb,var(--accent) 45%,#141821),#17131d 76%);box-shadow:0 0 16px color-mix(in srgb,var(--accent) 16%,transparent);flex:none}.track-art-fallback{font-size:13px;font-weight:800;color:#f1f5fa;text-shadow:0 0 10px var(--accent)}.track-art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:50%;z-index:1}.track-row.active .track-art{box-shadow:0 0 0 2px var(--accent),0 0 20px color-mix(in srgb,var(--accent) 38%,transparent)}.track-editor .track-art{width:34px;height:34px}.settings-panel .track-editor{grid-template-columns:36px 1fr auto}
 @media(max-width:650px){.track-row{grid-template-columns:20px 36px 28px minmax(0,1fr) auto}.track-art{width:34px;height:34px}.track-editor .track-art{width:32px;height:32px}}
