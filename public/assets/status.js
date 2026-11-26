@@ -23,7 +23,7 @@
     song: $('#statusSong'), artist: $('#statusArtist'), lyrics: $('#statusLyrics'),
     format: $('#statusFormat'), duration: $('#statusDuration'), theme: $('#statusTheme'),
     font: $('#statusFont'), background: $('#statusBackground'), audio: $('#statusAudio'),
-    snow: $('#statusSnow'), label: $('#statusLabel'), message: $('#statusMessage'),
+    snow: $('#statusSnow'), label: $('#statusLabel'), animation: $('#statusAnimation'), message: $('#statusMessage'),
     download: $('#statusDownload'), share: $('#statusShare')
   };
   const palettes = {
@@ -102,7 +102,10 @@
     const artist = form.artist.value.trim();
     const bodyLines = lines();
     const duration = Number(form.duration.value) || 12;
-    const idx = bodyLines.length ? Math.min(bodyLines.length - 1, Math.floor((time % duration) / duration * bodyLines.length)) : 0;
+    const lyricPosition = bodyLines.length ? (time % duration) / duration * bodyLines.length : 0;
+    const idx = bodyLines.length ? Math.floor(lyricPosition) % bodyLines.length : 0;
+    const lyricProgress = lyricPosition - Math.floor(lyricPosition);
+    const easedProgress = lyricProgress * lyricProgress * (3 - 2 * lyricProgress);
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     if (labelOn) {
       ctx.fillStyle = palette[2]; ctx.font = `700 ${Math.round(w * .025)}px Arial`; ctx.letterSpacing = `${w * .005}px`;
@@ -122,7 +125,7 @@
       const next = bodyLines[(idx + 1) % bodyLines.length];
       const base = Math.round(w * .075);
       const fontSize = Math.max(Math.round(w * .055), Math.min(base, Math.round(w * 5.4 / Math.max(11, bodyLines[idx].length))));
-      for (const [text, y, alpha, scale] of [[prev, centerY - h * .115, .36, .76], [next, centerY + h * .14, .34, .76]]) {
+      for (const [text, y, alpha, scale] of [[prev, centerY - h * (.125 - easedProgress * .018), .28 + easedProgress * .12, .72 + easedProgress * .04], [next, centerY + h * (.15 - easedProgress * .018), .38 - easedProgress * .1, .74 + easedProgress * .04]]) {
         if (bodyLines.length < 2) continue;
         ctx.globalAlpha = alpha; ctx.fillStyle = '#ffffff';
         const f = `${form.font.value === 'bold' ? 700 : 500} ${Math.round(fontSize * scale)}px ${face}`;
@@ -136,7 +139,18 @@
       ctx.strokeStyle = palette[2] + '70'; ctx.lineWidth = Math.max(1, w / 480); ctx.stroke(); ctx.restore();
       ctx.fillStyle = palette[3]; ctx.font = `${form.font.value === 'bold' ? 800 : 600} ${fontSize}px ${face}`;
       const active = wrapText(bodyLines[idx], maxTextW, ctx.font);
-      active.slice(0, 3).forEach((line, n) => ctx.fillText(line, w / 2, centerY + (n - (Math.min(3, active.length) - 1) / 2) * fontSize * 1.12, maxTextW));
+      const animation = form.animation?.value || 'soft';
+      const pulse = animation === 'pulse' ? 1 + Math.sin(time * 5.2) * .025 : 1;
+      const entrance = animation === 'soft' ? .92 + easedProgress * .08 : animation === 'karaoke' ? .97 + easedProgress * .03 : pulse;
+      ctx.save(); ctx.globalAlpha = animation === 'soft' ? .72 + easedProgress * .28 : 1;
+      ctx.translate(w / 2, centerY + (1 - easedProgress) * h * .018); ctx.scale(entrance, entrance);
+      active.slice(0, 3).forEach((line, n) => {
+        const y = (n - (Math.min(3, active.length) - 1) / 2) * fontSize * 1.12;
+        if (animation === 'karaoke') { const tint = ctx.createLinearGradient(-maxTextW / 2, 0, maxTextW / 2, 0); tint.addColorStop(0, palette[2]); tint.addColorStop(Math.max(.02, Math.min(.98, easedProgress)), palette[2]); tint.addColorStop(Math.min(1, easedProgress + .015), palette[3]); tint.addColorStop(1, palette[3]); ctx.fillStyle = tint; }
+        else ctx.fillStyle = palette[3];
+        ctx.fillText(line, 0, y, maxTextW);
+      });
+      ctx.restore();
     } else {
       ctx.fillStyle = '#ffffffb0'; ctx.font = `600 ${Math.round(w * .052)}px Arial`;
       ctx.fillText('Tus líneas van a aparecer acá', w / 2, centerY, w - safe * 2);
@@ -163,7 +177,7 @@
   function closeCreator() { cancelAnimationFrame(animationFrame); }
   $('#statusOpen')?.addEventListener('click', openCreator);
   dialog.addEventListener('close', closeCreator);
-  for (const control of [form.song, form.artist, form.lyrics, form.format, form.duration, form.theme, form.font, form.snow, form.label]) {
+  for (const control of [form.song, form.artist, form.lyrics, form.format, form.duration, form.theme, form.font, form.animation, form.snow, form.label]) {
     control.addEventListener('input', () => { generatedFile = null; form.share.disabled = true; draw(performance.now() / 1000); });
     control.addEventListener('change', () => { generatedFile = null; form.share.disabled = true; draw(performance.now() / 1000); });
   }
@@ -191,18 +205,18 @@
     if (!lines().length) { setMessage('Escribí al menos una línea de letra.'); form.lyrics.focus(); return; }
     busy = true; form.download.disabled = true; form.share.disabled = true;
     const [w, h] = dimensions(); preview.width = w; preview.height = h;
-    const duration = Number(form.duration.value) || 12, fps = 24, frames = Math.ceil(duration * fps);
+    const duration = Number(form.duration.value) || 12, fps = 60, frames = Math.ceil(duration * fps);
     let audioContext;
     try {
       setMessage('Preparando el creador de MP4…');
       const media = await import('https://cdn.jsdelivr.net/npm/mediabunny@1.66.4/+esm');
       const { Output, Mp4OutputFormat, BufferTarget, CanvasSource, AudioBufferSource, canEncodeVideo, canEncodeAudio } = media;
-      if (!await canEncodeVideo('avc', { width: w, height: h, frameRate: fps, bitrate: 1_800_000 })) {
+      if (!await canEncodeVideo('avc', { width: w, height: h, frameRate: fps, bitrate: 3_500_000 })) {
         throw new Error('Este navegador no puede crear MP4 en este dispositivo. Probá desde una versión reciente de Chrome o Safari.');
       }
       const target = new BufferTarget();
       const output = new Output({ format: new Mp4OutputFormat({ fastStart: 'in-memory' }), target });
-      const videoSource = new CanvasSource(preview, { codec: 'avc', bitrate: 1_800_000, frameRate: fps });
+      const videoSource = new CanvasSource(preview, { codec: 'avc', bitrate: 3_500_000, frameRate: fps });
       output.addVideoTrack(videoSource);
       let audioSource = null, clippedAudio = null;
       const audioFile = form.audio.files?.[0];
@@ -251,3 +265,4 @@
     } catch (error) { if (error?.name !== 'AbortError') setMessage('El video sigue descargado. Podés adjuntarlo al Estado de WhatsApp.'); }
   });
 })();
+
